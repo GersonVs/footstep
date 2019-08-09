@@ -161,12 +161,12 @@ class PrimeiraPagina extends StatelessWidget {
                   icon: Icon(Icons.play_circle_filled, color: Colors.black),
                   iconSize: 90,
                   tooltip: 'Start',
-                  onPressed: null, /* (){
-                    setState((){
-
-                      }
-                      ); }*/  
-              ),   
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SegundaPagina()));
+                  }),
             ),
           ],
         ),
@@ -174,7 +174,6 @@ class PrimeiraPagina extends StatelessWidget {
     );
   }
 }
-
 
 class SegundaPagina extends StatelessWidget {
   @override
