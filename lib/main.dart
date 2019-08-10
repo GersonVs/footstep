@@ -322,6 +322,19 @@ class SegundaPagina extends StatelessWidget {
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: IconButton(
+                  icon: Icon(Icons.pause_circle_filled, color: Colors.black),
+                  iconSize: 90,
+                  tooltip: 'Start',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrimeiraPagina()));
+                  }),
+            ),
           ],
         ),
       ),
