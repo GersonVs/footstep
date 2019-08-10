@@ -156,8 +156,8 @@ class SegundaPagina extends StatelessWidget {
                   tooltip: 'Start',
                   onPressed: () {
                     Navigator.maybePop(
-                        context,
-                        );
+                      context
+                    );
                   }),
             ),
           ],
