@@ -1,4 +1,4 @@
-# footstep
+![alt text](https://raw.githubusercontent.com/GersonVs/footstep/master/lib/assets/FootStepBig.png?token=AGYTHUDPD3J2I3334PB7FTK5LF6K4)
 
 A new Flutter project.
 
@@ -14,3 +14,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
