@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'SegundaPagina.dart';
 
+
 class PrimeiraPagina extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: new Image.asset(
-          'lib/assets/FootStepBig.png',
+          'assets/imagens/FootStepBig.png',
           fit: BoxFit.cover,
         ),
         centerTitle: true,
@@ -50,7 +51,7 @@ class PrimeiraPagina extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Image.asset('lib/assets/running.png'),
+                          child: Image.asset('assets/imagens/running.png'),
                         ),
                         Align(
                             alignment: Alignment.topCenter,
@@ -85,7 +86,7 @@ class PrimeiraPagina extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Image.asset('lib/assets/alarm.png'),
+                          child: Image.asset('assets/imagens/alarm.png'),
                         ),
                         Align(
                             alignment: Alignment.topCenter,
@@ -124,7 +125,7 @@ class PrimeiraPagina extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 69, top: 20),
                     child: Image.asset(
-                      'lib/assets/grupo1.png',
+                      'assets/imagens/grupo1.png',
                       scale: 0.78,
                     ),
                   ),
