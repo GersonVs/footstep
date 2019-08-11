@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'SegundaPagina.dart';
+import 'stepController.dart';
 
 
 class PrimeiraPagina extends StatelessWidget {
+
+  stepController step = stepController();
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +33,7 @@ class PrimeiraPagina extends StatelessWidget {
         ],
         elevation: 6,
       ),
+      
       body: Container(
         child: Column(
           children: <Widget>[
