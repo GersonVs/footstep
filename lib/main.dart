@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'SegundaPagina.dart';
+import 'dart:math';
+
 
 void main() => runApp(MyApp());
 
-
-
-
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,9 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -30,18 +25,23 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
-
-
-
-
 class _MyHomePageState extends State<MyHomePage> {
+  int contador = 0;
+
+  void incrementPassos() {
+    setState(() {
+     
+      contador++;
+  
+    });  
+    
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         title: new Image.asset(
           'assets/imagens/FootStepBig.png',
           fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         elevation: 6,
       ),
-           body: Center(
+      body: Center(
         child: Column(
           children: <Widget>[
             Container(
@@ -99,7 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 12,
                                 ),
                               ),
-                            ))
+                            )),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Text('$contador'),
+                        ),
                       ],
                     ),
                   ),
@@ -183,19 +187,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 20, top: 7),
+                child: Text(
+                  '$contador',
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                    fontSize: 50,
+                  ),
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(right: 20),
               child: IconButton(
-                  icon: Icon(Icons.play_circle_filled, color: Colors.black),
-                  iconSize: 90,
-                  tooltip: 'Start',
-                  onPressed: () {
-                    Navigator.push(
+                icon: Icon(Icons.play_circle_filled, color: Colors.black),
+                iconSize: 90,
+                tooltip: 'Start',
+                onPressed: () {
+                    incrementPassos(); 
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SegundaPagina()));
-                  }),
+                            builder: (context) => SegundaPagina())); 
+                  } 
+              ),
             ),
           ],
         ),
@@ -203,3 +219,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
