@@ -188,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: StreamBuilder(
                 stream: sController.outPassos,
                 builder: (context, snapshot){
-                  text: Text(snapshot.data.toString());
+                  child: Text(snapshot.data.toString());
                 },
               ),
               /* child: Padding(
