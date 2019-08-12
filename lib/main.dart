@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'SegundaPagina.dart';
+import 'package:rxdart/rxdart.dart';
 import 'stepController.dart';
-
+import 'SegundaPagina.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,15 +26,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   StepController sController;
+  Stream<int> counter;
+  String imageRunningState;
+  IconData iconRunningState;
+  bool correndo;
 
   @override
   void initState() {
+    counter = new Observable.just(0);
     sController = new StepController();
+    imageRunningState = 'assets/imagens/grupo1.png';
+    iconRunningState = Icons.play_circle_filled;
+    correndo = false;
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: EdgeInsets.only(left: 69, top: 20),
                     child: Image.asset(
-                      'assets/imagens/grupo1.png',
+                      imageRunningState,
                       scale: 0.78,
                     ),
                   ),
@@ -186,40 +192,47 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               child: Padding(
-                padding: EdgeInsets.only(left: 15, top: 10),
-                child: new StreamBuilder(stream: sController.outPassos, builder: (context, AsyncSnapshot<int> snapshot){
-                return new Text('${snapshot.data}', style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 50,
-              ));
-              })
-              ),
-              
-              /* child: Padding(
-                padding: EdgeInsets.only(left: 20, top: 7),
-                child: Text(
-                  ' ',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: 50,
-                  ),
-                ),
-              ), */
+                  padding: EdgeInsets.only(left: 15, top: 10),
+                  child: new StreamBuilder(
+                      stream: counter,
+                      builder: (context, AsyncSnapshot<int> snapshot) {
+                        return new Text('${snapshot.data}',
+                            style: TextStyle(
+                              color: Colors.lightBlue,
+                              fontSize: 50,
+                            ));
+                      })),
             ),
             Padding(
               padding: EdgeInsets.only(right: 20),
               child: IconButton(
-                icon: Icon(Icons.play_circle_filled, color: Colors.black),
-                iconSize: 90,
-                tooltip: 'Start',
-                onPressed: () {
-                  sController.countPassos(1);
-                      /* Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SegundaPagina())); */ 
-                  } 
-              ),
+                  icon: Icon(iconRunningState, color: Colors.black),
+                  iconSize: 90,
+                  tooltip: 'Start',
+                  onPressed: () {
+                    if (!correndo) {
+                      setState(() {
+                        counter = sController.startCounting();
+                        imageRunningState = 'assets/imagens/grupo2.png';
+                        iconRunningState = Icons.pause_circle_filled;
+                        correndo = true;
+                      });
+                    }
+                    else{
+                      counter;
+                      print('Heaven');
+                      print(counter.last);
+
+                      correndo = false;
+                      
+                    }
+
+                    sController.startCounting();
+                    //  Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => SegundaPagina()));
+                  }),
             ),
           ],
         ),
@@ -227,5 +240,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-

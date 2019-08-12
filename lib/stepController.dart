@@ -14,6 +14,8 @@ class StepController extends BlocBase{
   BehaviorSubject<int> tempoSubject = new BehaviorSubject<int>();
   Stream<int> get outTempo => tempoSubject.stream;
   Sink<int> get inTempo => tempoSubject.sink;
+
+  Stream<int> stepsCounter = new Observable.just(0).cast<int>();
   
 
   stepController(){
@@ -21,8 +23,16 @@ class StepController extends BlocBase{
     inTempo.add(tempo);
   }
 
+  Stream<int> startCounting(){
+    print("Hell");
+    return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
+      .take(100)
+      .cast<int>();
+  }
+
   countPassos(int contador){
     passos = passos + contador;
+    stepsCounter.listen((i) => i);
     inPassos.add(passos);
   }
 
@@ -31,11 +41,11 @@ class StepController extends BlocBase{
     inTempo.add(tempo);
   }
 
+
   
   void close() {
     passosSubject.close();
     tempoSubject.close();
-
   }
 
 
