@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SegundaPagina.dart';
-import 'dart:math';
+import 'stepController.dart';
 
 
 void main() => runApp(MyApp());
@@ -26,15 +26,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int contador = 0;
-
-  void incrementPassos() {
-    setState(() {
-     
-      contador++;
   
-    });  
-    
+  StepController sController;
+
+  @override
+  void initState() {
+    sController = new StepController();
+    super.initState();
   }
 
 
@@ -102,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             )),
                         Padding(
                           padding: EdgeInsets.only(right: 5),
-                          child: Text('$contador'),
+                          child: Text(''),
                         ),
                       ],
                     ),
@@ -187,16 +185,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-              child: Padding(
+              child: StreamBuilder(
+                stream: sController.outPassos,
+                builder: (context, snapshot){
+                  text: Text(snapshot.data.toString());
+                },
+              ),
+              /* child: Padding(
                 padding: EdgeInsets.only(left: 20, top: 7),
                 child: Text(
-                  '$contador',
+                  ' ',
                   style: TextStyle(
                     color: Colors.lightBlue,
                     fontSize: 50,
                   ),
                 ),
-              ),
+              ), */
             ),
             Padding(
               padding: EdgeInsets.only(right: 20),
@@ -205,11 +209,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 iconSize: 90,
                 tooltip: 'Start',
                 onPressed: () {
-                    incrementPassos(); 
-                      Navigator.push(
+                  sController.countPassos(1);
+                      /* Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SegundaPagina())); 
+                            builder: (context) => SegundaPagina())); */ 
                   } 
               ),
             ),

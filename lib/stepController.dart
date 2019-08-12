@@ -2,7 +2,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
 
-class stepController extends BlocBase{
+class StepController extends BlocBase{
 
   int passos = 0;
   int tempo = 0;
@@ -15,7 +15,12 @@ class stepController extends BlocBase{
   Stream<int> get outTempo => tempoSubject.stream;
   Sink<int> get inTempo => tempoSubject.sink;
 
-  contPassos(int contador){
+  stepController(){
+    inPassos.add(passos);
+    inTempo.add(tempo);
+  }
+
+  countPassos(int contador){
     passos = passos + contador;
     inPassos.add(passos);
   }
