@@ -14,6 +14,7 @@ class StepController extends BlocBase{
   BehaviorSubject<int> tempoSubject = new BehaviorSubject<int>();
   Stream<int> get outTempo => tempoSubject.stream;
   Sink<int> get inTempo => tempoSubject.sink;
+  
 
   stepController(){
     inPassos.add(passos);

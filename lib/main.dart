@@ -185,12 +185,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-              child: StreamBuilder(
-                stream: sController.outPassos,
-                builder: (context, snapshot){
-                  child: Text(snapshot.data.toString());
-                },
+              child: Padding(
+                padding: EdgeInsets.only(left: 15, top: 10),
+                child: new StreamBuilder(stream: sController.outPassos, builder: (context, AsyncSnapshot<int> snapshot){
+                return new Text('${snapshot.data}', style: TextStyle(
+                  color: Colors.lightBlue,
+                  fontSize: 50,
+              ));
+              })
               ),
+              
               /* child: Padding(
                 padding: EdgeInsets.only(left: 20, top: 7),
                 child: Text(
