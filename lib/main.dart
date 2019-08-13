@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:footstep/login_bloc.dart';
 import 'package:footstep/tela_login.dart';
 import 'package:rxdart/rxdart.dart';
 import 'stepController.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FootStep',
       debugShowCheckedModeBanner: false,
-      home:LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }
@@ -33,11 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
   String imageRunningState;
   IconData iconRunningState;
   bool correndo;
+  StepController tController;
+  Stream<int> time;
 
   @override
   void initState() {
+    time = new Observable.just(0);
     counter = new Observable.just(0);
     sController = new StepController();
+    tController = new StepController();
     imageRunningState = 'assets/imagens/grupo1.png';
     iconRunningState = Icons.play_circle_filled;
     correndo = false;
@@ -130,9 +135,42 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Image.asset('assets/imagens/alarm.png'),
-                        ),
+                            padding: EdgeInsets.only(left: 10),
+                            child: Image.asset('assets/imagens/alarm.png')),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10, left: 10),
+                                    child: Text(
+                                      "Tempo parado",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: StreamBuilder(
+                                  stream: time,
+                                  builder: (context, snapshot) {
+                                    return new Text('${snapshot.data}',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                        ));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+
+                        /* 
                         Align(
                             alignment: Alignment.topCenter,
                             child: Padding(
@@ -144,7 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 12,
                                 ),
                               ),
-                            ))
+                            )
+                        ) */
                       ],
                     ),
                   ),
@@ -215,21 +254,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (!correndo) {
                       setState(() {
                         counter = sController.startCounting();
+                        time = tController.startCounting();
                         imageRunningState = 'assets/imagens/grupo2.png';
                         iconRunningState = Icons.pause_circle_filled;
                         correndo = true;
                       });
-                    }
-                    else{
-                      counter;
-                      print('Heaven');
-                      print(counter.last);
-
+                    } else {
                       correndo = false;
-                      
                     }
-                    sController.startCounting();
-                    
                   }),
             ),
           ],
