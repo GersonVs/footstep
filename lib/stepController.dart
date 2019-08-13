@@ -26,7 +26,7 @@ class StepController extends BlocBase{
   Stream<int> startCounting(){
     print("Hell");
     return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
-      .take(100)
+      .take(30)
       .cast<int>();
   }
 

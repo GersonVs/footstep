@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:footstep/login_bloc.dart';
+import 'package:footstep/tela_login.dart';
 import 'package:rxdart/rxdart.dart';
 import 'stepController.dart';
-import 'SegundaPagina.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FootStep',
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home:LoginScreen(),
     );
   }
 }
@@ -226,12 +228,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       correndo = false;
                       
                     }
-
                     sController.startCounting();
-                    //  Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => SegundaPagina()));
+                    
                   }),
             ),
           ],
