@@ -23,7 +23,17 @@ class StepController extends BlocBase{
     inTempo.add(tempo);
   }
 
-  Stream<int> startCounting(){
+  
+
+  Stream<int> startCountingtime(){
+    
+    return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
+      .take(30)
+      .cast<int>();
+  }
+
+
+  Stream<int> startCountingstep(){
     return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
       .take(30)
       .cast<int>();

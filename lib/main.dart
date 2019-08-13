@@ -33,9 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Stream<int> counter;
   String imageRunningState;
   IconData iconRunningState;
-  bool correndo;
   StepController tController;
   Stream<int> time;
+  bool parado;
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     tController = new StepController();
     imageRunningState = 'assets/imagens/grupo1.png';
     iconRunningState = Icons.play_circle_filled;
-    correndo = false;
+    parado = true;
     super.initState();
   }
 
@@ -169,21 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                         )
-
-                        /* 
-                        Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 10, left: 10),
-                              child: Text(
-                                "Tempo parado",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            )
-                        ) */
                       ],
                     ),
                   ),
@@ -251,16 +236,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   iconSize: 90,
                   tooltip: 'Start',
                   onPressed: () {
-                    if (!correndo) {
+                    if (parado) {
                       setState(() {
-                        counter = sController.startCounting();
-                        time = tController.startCounting();
+                       
+                        counter = sController.startCountingstep();
                         imageRunningState = 'assets/imagens/grupo2.png';
                         iconRunningState = Icons.pause_circle_filled;
-                        correndo = true;
+                        parado = false;
                       });
-                    } else {
-                      correndo = false;
+                    } 
+                    else{
+                      
+                      setState(() {
+                      parado = true;
+                      
+                      time = tController.startCountingtime();
+                      imageRunningState = 'assets/imagens/grupo1.png';
+                      iconRunningState = Icons.play_circle_filled;
+
+                      });
                     }
                   }),
             ),
