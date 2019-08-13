@@ -238,21 +238,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     if (parado) {
                       setState(() {
-                       
                         counter = sController.startCountingstep();
                         imageRunningState = 'assets/imagens/grupo2.png';
+                        time = new Observable.just(0);
                         iconRunningState = Icons.pause_circle_filled;
                         parado = false;
                       });
                     } 
                     else{
-                      
                       setState(() {
-                      parado = true;
-                      
                       time = tController.startCountingtime();
                       imageRunningState = 'assets/imagens/grupo1.png';
+                      counter = new Observable.just(0);
                       iconRunningState = Icons.play_circle_filled;
+                      parado = true;
+                      
 
                       });
                     }
