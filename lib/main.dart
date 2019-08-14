@@ -34,15 +34,19 @@ class _MyHomePageState extends State<MyHomePage> {
   String imageRunningState;
   IconData iconRunningState;
   StepController tController;
+  StepController somaController;
   Stream<int> time;
   bool parado;
+  Stream<int> soma;
 
   @override
   void initState() {
     time = new Observable.just(0);
     counter = new Observable.just(0);
+    soma = new Observable.just(0);
     sController = new StepController();
     tController = new StepController();
+    somaController = new StepController();
     imageRunningState = 'assets/imagens/grupo1.png';
     iconRunningState = Icons.play_circle_filled;
     parado = true;
@@ -96,25 +100,40 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Image.asset('assets/imagens/running.png'),
-                        ),
+                            padding: EdgeInsets.only(left: 10),
+                            child: Image.asset('assets/imagens/running.png')),
                         Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 10, left: 10),
-                              child: Text(
-                                "Total de passos",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10, left: 10),
+                                    child: Text(
+                                      "Total de passos",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: StreamBuilder(
+                                  stream: soma ,
+                                  builder: (context, snapshot) {
+                                    return new Text('${snapshot.data}',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                        ));
+                                  },
                                 ),
                               ),
-                            )),
-                        Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Text(''),
-                        ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -242,18 +261,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         imageRunningState = 'assets/imagens/grupo2.png';
                         time = new Observable.just(0);
                         iconRunningState = Icons.pause_circle_filled;
+                        soma = somaController.startCountingSoma();
                         parado = false;
                       });
-                    } 
-                    else{
+                    } else {
                       setState(() {
-                      time = tController.startCountingtime();
-                      imageRunningState = 'assets/imagens/grupo1.png';
-                      counter = new Observable.just(0);
-                      iconRunningState = Icons.play_circle_filled;
-                      parado = true;
-                      
-
+                        time = tController.startCountingtime();
+                        imageRunningState = 'assets/imagens/grupo1.png';
+                        counter = new Observable.just(0);
+                        iconRunningState = Icons.play_circle_filled;
+                        parado = true;
+                        soma = somaController.stopSoma();
+                        
                       });
                     }
                   }),
