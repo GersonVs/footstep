@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/GersonVs/footstep/master/lib/assets/FootStepBig.png?token=AGYTHUDPD3J2I3334PB7FTK5LF6K4)
+![alt text](https://raw.githubusercontent.com/GersonVs/footstep/master/assets/imagens/FootStepBig.png)
 
 A new Flutter project.
 
