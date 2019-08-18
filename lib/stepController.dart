@@ -48,17 +48,17 @@ class StepController extends BlocBase{
   }
   
 
-  Stream<int> startCountingtime(){
+  Stream<String> startCountingtime(){
     
     return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
-      .take(10)
-      .cast<int>();
+    .map((i) => '${(i / 60).floor()}m: ${(i % 60).round()}s')
+    .cast<String>();
   }
 
 
   Stream<int> startCountingstep(){
     return new Observable.periodic(new Duration(seconds: 1), (i) => ++i)
-      .take(10)
+      
       .cast<int>();
   }
 

@@ -17,9 +17,19 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Container(),
+          Container(
+            decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/imagens/rub1.jpg'),
+                    fit: BoxFit.cover
+                  )
+                ),
+
+          ),
           SingleChildScrollView(
+              
               child: Container(
+                // teste 
             margin: EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -34,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscure: false,
                   stream: _loginBloc.outEmail,
                   onChanged: _loginBloc.changeEmail,
+                  
                 ),
                 InputField(
                   icon: Icons.vpn_key,
@@ -41,9 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscure: true,
                   stream: _loginBloc.outSenha,
                   onChanged: _loginBloc.changeSenha,
+                  
+                  
                 ),
                 SizedBox(
                   height: 32,
+                  
                 ),
                 StreamBuilder<bool>(
                     stream: _loginBloc.outSubmitValid,

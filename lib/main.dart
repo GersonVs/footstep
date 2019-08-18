@@ -35,15 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
   IconData iconRunningState;
   StepController tController;
   StepController somaController;
-  Stream<int> time;
+  Stream<String> time;
   bool parado;
-  Stream<int> soma;
+  int totalSteps;
+  StreamSubscription counterSubs;
+  int soma;
 
   @override
   void initState() {
-    time = new Observable.just(0);
+    counterSubs = null;
+    totalSteps = 0;
+    time = new Observable.just('');
     counter = new Observable.just(0);
-    soma = new Observable.just(0);
+    soma = 0;
     sController = new StepController();
     tController = new StepController();
     somaController = new StepController();
@@ -120,16 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   )),
                               Padding(
                                 padding: EdgeInsets.only(top: 5),
-                                child: StreamBuilder(
-                                  stream: soma ,
-                                  builder: (context, snapshot) {
-                                    return new Text('${snapshot.data}',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                        ));
-                                  },
-                                ),
+                                child: Text(soma.toString(),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                    )),
                               ),
                             ],
                           ),
@@ -237,16 +236,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               child: Padding(
-                  padding: EdgeInsets.only(left: 15, top: 10),
-                  child: new StreamBuilder(
-                      stream: counter,
-                      builder: (context, AsyncSnapshot<int> snapshot) {
-                        return new Text('${snapshot.data}',
-                            style: TextStyle(
-                              color: Colors.lightBlue,
-                              fontSize: 50,
-                            ));
-                      })),
+                  padding: EdgeInsets.only(left: 30, top: 10),
+                  child: Text(totalSteps.toString(),
+                      style: TextStyle(
+                        color: Colors.lightBlue,
+                        fontSize: 50,
+                      ))),
             ),
             Padding(
               padding: EdgeInsets.only(right: 20),
@@ -256,23 +251,48 @@ class _MyHomePageState extends State<MyHomePage> {
                   tooltip: 'Start',
                   onPressed: () {
                     if (parado) {
+                      
+                      if (counterSubs == null) {
+                        counterSubs = new Observable.periodic(
+                            new Duration(seconds: 1), (i) => ++i)
+                              .cast<int>()
+                              .listen((val) {
+                            setState(() {
+                              totalSteps = val;
+                              
+                            });
+                          });
+                      }else{
+                        if (counterSubs.isPaused) {
+                          counterSubs.resume();
+                          
+                          
+
+                      }
+                      }
+
                       setState(() {
-                        counter = sController.startCountingstep();
                         imageRunningState = 'assets/imagens/grupo2.png';
-                        time = new Observable.just(0);
+                        time = new Observable.just('');
                         iconRunningState = Icons.pause_circle_filled;
-                        soma = somaController.startCountingSoma();
+                        //soma = somaController.startCountingSoma();
                         parado = false;
+                        
                       });
                     } else {
+                      counterSubs.cancel();
+                      counterSubs = null;
+                      
+
+                      soma += totalSteps;
                       setState(() {
                         time = tController.startCountingtime();
                         imageRunningState = 'assets/imagens/grupo1.png';
                         counter = new Observable.just(0);
                         iconRunningState = Icons.play_circle_filled;
                         parado = true;
-                        soma = somaController.stopSoma();
                         
+                        //soma = somaController.stopSoma();
                       });
                     }
                   }),
